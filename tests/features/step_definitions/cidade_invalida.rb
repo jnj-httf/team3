@@ -1,6 +1,6 @@
 Quando("digito uma cidade inválida") do
 	isit('/buscar-ubs.html')
-    fill_in(id: 'cidade', with: 'Cidade JNJ')
+    fill_in(id: 'inputCidade', with: 'Cidade JNJ')
     find('input[value="Buscar UBS"]').click
 end
 

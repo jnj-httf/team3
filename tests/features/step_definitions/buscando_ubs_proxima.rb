@@ -6,5 +6,5 @@ Quando("digito uma latitude e uma longitude") do
 end
 
 Entao("verifico se a ubs mais proxima foi localizada e exibida") do
-    find('#tabela_ubs')
+    find('#table-ubs')
 end
