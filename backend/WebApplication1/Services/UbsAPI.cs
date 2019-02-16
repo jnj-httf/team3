@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -15,16 +16,50 @@ namespace Challenge1HackTeam3.Services
 
         public static ResponseDTO GetUbs()
         {
+            ResponseDTO pages = new ResponseDTO();
+
+            if (File.Exists(@"c:\temp\baseUBS.jj"))
+            {
+                StreamReader sr = new StreamReader(@"c:\temp\baseUBS.jj");
+                var jsonFile = sr.ReadToEnd();
+                pages = JsonConvert.DeserializeObject<ResponseDTO>(jsonFile);
+                sr.Close();
+            }
+            else
+            {
+                pages = GetPage(1);
+
+                var totalPages = pages._MetaData.page.Split('/');
+                List<int> lstCount = new List<int>();
+
+                for (int i = 1; i < Convert.ToInt32(totalPages[1].Trim()); i++)
+                    lstCount.Add(i);
+
+                lstCount.AsParallel().ForAll(x =>
+                {
+                    ResponseDTO page = GetPage(x);
+                    pages.Records.AddRange(page.Records);
+                });
+
+                StreamWriter sw = new StreamWriter(@"c:\temp\baseUBS.jj");
+                sw.WriteLine(JsonConvert.SerializeObject(pages));
+                sw.Close();
+            }
+
+            return pages;
+        }
+
+        private static ResponseDTO GetPage(int page)
+        {
             var client = new RestClient("https://api-ldc-hackathon.herokuapp.com/api/");
-            var request = new RestRequest("ubs", Method.GET);
+            var request = new RestRequest("ubs/" + page.ToString() , Method.GET);
 
             //adicionar o tipo no execute
             IRestResponse response = client.Execute<ResponseDTO>(request);
             var cont = response.Content;
-
             return JsonConvert.DeserializeObject<ResponseDTO>(cont);
         }
-
+        
         public static List<Record> getUbsByCity(string cidade)
         {
             ResponseDTO json = GetUbs();

@@ -8,7 +8,7 @@ namespace Challenge1HackTeam3.Models
 
     public class ResponseDTO
     {
-        public Metadata MetaD { get; set; }
+        public Metadata _MetaData { get; set; }
         public List<Record> Records { get; set; }
     }
 

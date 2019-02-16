@@ -23,7 +23,13 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IHttpActionResult GetCidades(string cidade)
         {
-            return Ok(UbsAPI.getUbsByCity(cidade));
+           // try
+           // {
+                return Ok(UbsAPI.getUbsByCity(cidade));
+           // }catch(Exception e)
+           // {
+
+         //   }
         }
 
         [HttpGet]
