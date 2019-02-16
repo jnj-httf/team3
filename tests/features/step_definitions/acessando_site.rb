@@ -1,5 +1,5 @@
 Quando("acesso a URL") do
-    visit('')
+    visit('/buscar-ubs.html')
 end
 
 Então("eu verifico se estou na página correta") do
