@@ -1,6 +1,6 @@
 function getcidades(){
 	
-	var url = 'https://api-ldc-hackathon.herokuapp.com/api/ubs/10';
+	var url = 'https://api-ldc-hackathon.herokuapp.com/api/ubs/1';
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', url, true);
 	xhr.responseType = 'json';

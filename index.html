@@ -12,18 +12,25 @@
   </head>
   <body>
     
-    <div class="col-md-2">
-    	<form>
-        <p>Digite a cidade:</p>
-        <input type="text" id="cidade"><br>
-        <p>Digite a Latitude:</p>
-        <input type="text" id="latitude"><br>
-        <p>Digite a Longitude:</p>
-        <input type="text" id="longitude"><br>
-      </form>
-    </div>
+    <div class="">
+      <div class="col-md-2">
+      	<form>
+          <p>Digite a cidade:</p>
+          <input type="text" id="cidade"><br>
+          <p>Digite a Latitude:</p>
+          <input type="text" id="latitude"><br>
+          <p>Digite a Longitude:</p>
+          <input type="text" id="longitude"><br>
+        </form>
+        
+        <button id="buscarcidade" class="btn btn-primary" onclick="getcidades()"> BUSCAR CIDADES</button>
+      </div>
 
-    <button class="btn btn-primary" onclick="getcidades()"> GET CIDADES</button>
+      <div class="col-md-2">
+
+        <button id="buscarcidadeprox" class="btn btn-primary" onclick="getcidades()"> BUSCAR UBS PROX</button>
+      </div>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
