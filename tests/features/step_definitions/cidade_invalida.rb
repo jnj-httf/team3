@@ -5,6 +5,6 @@ Quando("digito uma cidade inválida") do
 end
 
 Entao("verifico se um erro é exibido") do
-	texto = find('#notice')
-    expect(texto.text).to eql 'A cidade deigitada é inválida'
+	texto = find('#erro_cidade')
+    expect(texto.text).to eql 'A cidade digitada é inválida'
 end
