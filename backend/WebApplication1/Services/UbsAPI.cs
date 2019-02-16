@@ -63,13 +63,13 @@ namespace Challenge1HackTeam3.Services
         public static List<Record> getUbsByCity(string cidade)
         {
             ResponseDTO json = GetUbs();
-            var ret = json.Records.Where(x => x.dsc_cidade.Trim().ToUpper() == cidade.Trim().ToUpper()).ToList();
+            var ret = json.Records.Where(x => x!= null && x.dsc_cidade.Trim().ToUpper() == cidade.Trim().ToUpper()).ToList();
 
             return ret;
         }
 
 
-        public static IOrderedEnumerable<Record> GetUbsByLat(double lat, double lng)
+        public static IEnumerable<Record> GetUbsByLat(double lat, double lng)
         {
             var cities = GetUbs();
             cities.Records.ForEach(x =>
@@ -88,7 +88,7 @@ namespace Challenge1HackTeam3.Services
 
            });
 
-            return cities.Records.OrderByDescending(x => x.distance);
+            return cities.Records.OrderBy(x => x.distance).Take(10);
         }
 
 
