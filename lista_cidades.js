@@ -1,17 +1,21 @@
 function getcidades(){
+	
+	var url = 'https://api-ldc-hackathon.herokuapp.com/api/ubs/1';
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', url, true);
+	xhr.responseType = 'json';
+	xhr.onload = function(){
+		var status = xhr.status;
 
+		if(status === 200)
+		{
+			callback(null, xhr.response);
+		}
+		else
+		{
+			callback(status, xhr.response);
+		}
+	};
+	xhr.send();
 
-// Create a request variable and assign a new XMLHttpRequest object to it.
-var request = new XMLHttpRequest();
-
-// Open a new connection, using the GET request on the URL endpoint
-request.open('GET', 'https://api-ldc-hackathon.herokuapp.com/api/ubs/1', true);
-
-request.onload = function () {
-  // Begin accessing JSON data here
-  }
-
-// Send request
-request.send();
-
-}
+}	
