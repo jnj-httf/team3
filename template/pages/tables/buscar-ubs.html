@@ -135,7 +135,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example2" class="table table-bordered table-hover">
+              <table id="table-ubs" class="table table-bordered table-hover">
                 <thead>
                 <tr>
                   <th>Cod Municipio</th>
@@ -148,17 +148,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                  <td>X</td>
-                  <td>X</td>
-                </tr>
+                
                 
                 
                 </tfoot>
@@ -213,8 +203,36 @@
 <script>
 
 function getUbs(){
+	console.log('teste');
+	var cidade = {};
+	cidade['cidade'] = $('#inputCidade').val();
+	var data = cidade; 
+	requestAJAX('GET','http://localhost:51726/api/UBS/GetCidades', data, function(response){
+		var html = ''
+		for (i = 0; i < response.length; i++) { 
+			html += "<tr>" + 
+						"<td>" + response[i].cod_munic + "</td>" +
+						"<td>" + response[i].cod_cnes + "</td>" + 
+						"<td>" + response[i].nom_estab + "</td>" + 
+						"<td>" + response[i].dsc_endereco + "</td>" + 
+						"<td>" + response[i].dsc_bairro + "</td>" + 
+						"<td>" + response[i].dsc_cidade + "</td>" + 
+						"<td>" + response[i].dsc_telefone + "</td>" + 
+						"</tr>";
+						
+			
+	
+		}
+		
+		$('#table-ubs tbody').append(html);
+		
+		$('#section-table-ubs').show();
+	
+	});
   
-  $('#section-table-ubs').show();
+
+  
+  
 
 
 }
@@ -222,15 +240,7 @@ function getUbs(){
 
 
   $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
+    
   })
 </script>
 </body>
