@@ -20,6 +20,29 @@ function getcidades(){
 
 }	
 
+
+function requestAJAX(type, method, data, callback) {
+
+	$.ajax({
+		type : type,
+		contentType : "application/json",
+		url : method,
+		data : data,
+		dataType : 'json',
+		timeout : 300000,
+		success : function(data) {
+			callback(data);
+		},
+		error : function() {
+			showMessage(TITLE_SWEET.DEFAULT, TYPE_SWEET.ERROR,MESSAGE.ERROR_REQUEST);
+		},
+		done : function() {
+
+		}
+	});
+}
+
+
 function readTextFile() {
   var rawFile = new XMLHttpRequest();
   rawFile.open("GET", "citys.txt", true);
@@ -30,4 +53,13 @@ function readTextFile() {
     }
   }
   rawFile.send();
+}
+
+
+function getUbs(){
+
+}
+
+function getUbsProximas(){
+	
 }
