@@ -1,5 +1,5 @@
 Quando("digito uma cidade e aperto em buscar ubs") do
-    visit '/buscar-ubs.html'
+    visit '/getUbsProxima'
     fill_in(id: 'inputCidade', with: 'Aracaju')
     find('input[value="Buscar UBS"]').click
 end
