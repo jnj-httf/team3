@@ -81,7 +81,7 @@ namespace Challenge1HackTeam3.Services
                    var dlat = Convert.ToDouble(x.vlr_latitude) - lat;
                    var dlon = Convert.ToDouble(x.vlr_longitude) - lng;
 
-                   var q = Math.Pow(Math.Sin(dlat), 2) + Math.Cos(lat) * Math.Cos(Convert.ToDouble(x.vlr_latitude)) * Math.Pow(Math.Sin(dlon), 2);
+                   var q = Math.Abs (Math.Pow(Math.Sin(dlat), 2) + Math.Cos(lat) * Math.Cos(Convert.ToDouble(x.vlr_latitude)) * Math.Pow(Math.Sin(dlon), 2));
                    var c = 2 * Math.Atan2(Math.Sqrt(q), Math.Sqrt(1 - q));
 
                    var d = c * R;
@@ -89,8 +89,11 @@ namespace Challenge1HackTeam3.Services
 
                    x.distance = distance;
 
-                   lstRet.Add(x);
+                   if (double.IsNaN(x.distance)){
+                        x.distance = 9999999;
+                   }
 
+                   lstRet.Add(x);
                }
                
 
