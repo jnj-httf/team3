@@ -110,7 +110,7 @@
                   <label for="inputCidade" class="col-sm-2 control-label">Latitude</label>
     
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputCidade" placeholder="Enter latitude">
+                    <input type="text" class="form-control" id="inputLatitude" placeholder="Enter latitude">
                   </div>
                 </div>
 
@@ -118,7 +118,7 @@
                     <label for="inputCidade" class="col-sm-2 control-label">Longitude</label>
       
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputCidade" placeholder="Enter longitude">
+                      <input type="text" class="form-control" id="inputLongitude" placeholder="Enter longitude">
                     </div>
                   </div>
                 
@@ -126,7 +126,7 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <button type="submit" class="btn btn-info pull-left" onclick="getUbsProxima();">Buscar UBS Proxima</button>
+                <button type="button" class="btn btn-info pull-left" onclick="getUbsProxima();">Buscar UBS Proxima</button>
               </div>
               <!-- /.box-footer -->
             </form>
@@ -136,14 +136,14 @@
     <!-- Main content -->
     <section class="content">
       <div class="row">
-        <div class="col-xs-12">
+        <div id="section-table-ubs" class="col-xs-12" style="display: none;">
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">UBS</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example2" class="table table-bordered table-hover">
+              <table id="table-ubs" class="table table-bordered table-hover">
                 <thead>
                 <tr>
                   <th>Distancia (m)</th>
@@ -206,58 +206,52 @@
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
 <!-- page script -->
+<script src="../../../lista_cidades.js"></script>
 <script>
 
 function getUbsProxima(){
 	console.log('teste');
 	var cidade = {};
-  cidade['latitude'] = $('#inputLatitude').val();
-  cidade['longitude'] = $('#inputLongitude').val();
-	var data = cidade; 
-	requestAJAX('GET','http://localhost:51726/api/UBS/getUbsProxima', data, function(response){
-		var html = ''
-		for (i = 0; i < response.length; i++) { 
-      html += "<tr>" + 
-            "<td>" + response[i].distance + "</td>" +
-						"<td>" + response[i].cod_munic + "</td>" +
-						"<td>" + response[i].cod_cnes + "</td>" + 
-						"<td>" + response[i].nom_estab + "</td>" + 
-						"<td>" + response[i].dsc_endereco + "</td>" + 
-						"<td>" + response[i].dsc_bairro + "</td>" + 
-						"<td>" + response[i].dsc_cidade + "</td>" + 
-						"<td>" + response[i].dsc_telefone + "</td>" + 
-						"</tr>";
-						
-		}
+	  cidade['latitude'] = $('#inputLatitude').val();
+	  cidade['longitude'] = $('#inputLongitude').val();
+		var data = cidade; 
+		requestAJAX('GET','http://localhost:51726/api/UBS/getUbsProxima', data, function(response){
+			var html = ''
+			for (i = 0; i < response.length; i++) { 
+				html += "<tr>" + 
+				"<td>" + response[i].distance + "</td>" +
+							"<td>" + response[i].cod_munic + "</td>" +
+							"<td>" + response[i].cod_cnes + "</td>" + 
+							"<td>" + response[i].nom_estab + "</td>" + 
+							"<td>" + response[i].dsc_endereco + "</td>" + 
+							"<td>" + response[i].dsc_bairro + "</td>" + 
+							"<td>" + response[i].dsc_cidade + "</td>" + 
+							"<td>" + response[i].dsc_telefone + "</td>" + 
+							"</tr>";
+							
+			}
+							
 		
-    $('#table-ubs tbody').append(html);
-    
-    $('#table-ubs').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
 		
-    $('#section-table-ubs').show();
+			$('#table-ubs tbody').append(html);
+			
+			$('#table-ubs').DataTable({
+			  'paging'      : true,
+			  'lengthChange': false,
+			  'searching'   : false,
+			  'ordering'    : true,
+			  'info'        : true,
+			  'autoWidth'   : false
+			});
+		
+			$('#section-table-ubs').show();
     
     
 	
-	});
-
-  $(function () {
-    
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-  })
+		});
+		
+	}
+  
 </script>
 </body>
 </html>

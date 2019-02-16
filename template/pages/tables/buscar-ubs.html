@@ -223,10 +223,21 @@ function getUbs(){
 			
 	
 		}
+		$('#table-ubs').dataTable().fnDestroy();
+		$('#table-ubs').DataTable({
+		  'paging'      : true,
+		  'lengthChange': false,
+		  'searching'   : true,
+		  'ordering'    : true,
+		  'info'        : true,
+		  'autoWidth'   : false
+		})
 		
 		$('#table-ubs tbody').append(html);
 		
 		$('#section-table-ubs').show();
+		
+		
 	
 	});
   

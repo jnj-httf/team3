@@ -72,23 +72,34 @@ namespace Challenge1HackTeam3.Services
         public static IEnumerable<Record> GetUbsByLat(double lat, double lng)
         {
             var cities = GetUbs();
+            List<Record> lstRet = new List<Record>();
             cities.Records.ForEach(x =>
            {
-               double R = 6371e3;
-               var dlat = Convert.ToDouble(x.vlr_latitude) - lat;
-               var dlon = Convert.ToDouble(x.vlr_longitude) - lng;
+               if (x != null)
+               {
+                   double R = 6371e3;
+                   var dlat = Convert.ToDouble(x.vlr_latitude) - lat;
+                   var dlon = Convert.ToDouble(x.vlr_longitude) - lng;
 
-               var q = Math.Pow(Math.Sin(dlat), 2) + Math.Cos(lat) * Math.Cos(Convert.ToDouble(x.vlr_latitude)) * Math.Pow(Math.Sin(dlon), 2);
-               var c = 2 * Math.Atan2(Math.Sqrt(q), Math.Sqrt(1 - q));
+                   var q = Math.Abs (Math.Pow(Math.Sin(dlat), 2) + Math.Cos(lat) * Math.Cos(Convert.ToDouble(x.vlr_latitude)) * Math.Pow(Math.Sin(dlon), 2));
+                   var c = 2 * Math.Atan2(Math.Sqrt(q), Math.Sqrt(1 - q));
 
-               var d = c * R;
-               var distance = d / 1000;
+                   var d = c * R;
+                   var distance = d / 1000;
 
-               x.distance = distance;
+                   x.distance = distance;
+
+                   if (double.IsNaN(x.distance)){
+                        x.distance = 9999999;
+                   }
+
+                   lstRet.Add(x);
+               }
+               
 
            });
 
-            return cities.Records.OrderBy(x => x.distance).Take(10);
+            return lstRet.Where(x => x != null).ToList().OrderBy(x =>  x.distance).Take(10);
         }
 
 

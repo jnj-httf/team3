@@ -42,3 +42,9 @@ function initializeTableExtract(){
 	    	applyScrollBody('extractTable');
 	    	hideSearchGeral('extractTable');
 	    }
+
+
+        function resetTable(nameTable, callback) {
+	$('#' + nameTable).dataTable().fnDestroy();
+	(callback !== undefined) ? callback() : '';
+}
