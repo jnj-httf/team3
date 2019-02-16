@@ -56,10 +56,7 @@ function readTextFile() {
 }
 
 
-function getUbs(){
-
-}
-
-function getUbsProximas(){
-	
+function resetTable(nameTable, callback) {
+	$('#' + nameTable).dataTable().fnDestroy();
+	(callback !== undefined) ? callback() : '';
 }

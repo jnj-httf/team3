@@ -149,7 +149,7 @@
                 </thead>
                 <tbody>
                 
-                
+                </tbody>
                 
                 </tfoot>
               </table>
@@ -203,37 +203,43 @@
 <script>
 
 function getUbs(){
-	console.log('teste');
+
+	var html = ''
+	$('#table-ubs tbody').html('');
+	
 	var cidade = {};
 	cidade['cidade'] = $('#inputCidade').val();
 	var data = cidade; 
 	requestAJAX('GET','http://localhost:51726/api/UBS/GetCidades', data, function(response){
-		var html = ''
-		for (i = 0; i < response.length; i++) { 
-			html += "<tr>" + 
-						"<td>" + response[i].cod_munic + "</td>" +
-						"<td>" + response[i].cod_cnes + "</td>" + 
-						"<td>" + response[i].nom_estab + "</td>" + 
-						"<td>" + response[i].dsc_endereco + "</td>" + 
-						"<td>" + response[i].dsc_bairro + "</td>" + 
-						"<td>" + response[i].dsc_cidade + "</td>" + 
-						"<td>" + response[i].dsc_telefone + "</td>" + 
-						"</tr>";
-						
+		resetTable('table-ubs', function(){
+			var html = "";
+			for (i = 0; i < response.length; i++) { 
+				html += "<tr>" + 
+							"<td>" + response[i].cod_munic + "</td>" +
+							"<td>" + response[i].cod_cnes + "</td>" + 
+							"<td>" + response[i].nom_estab + "</td>" + 
+							"<td>" + response[i].dsc_endereco + "</td>" + 
+							"<td>" + response[i].dsc_bairro + "</td>" + 
+							"<td>" + response[i].dsc_cidade + "</td>" + 
+							"<td>" + response[i].dsc_telefone + "</td>" + 
+							"</tr>";
+							
+			}
 			
-	
-		}
-		$('#table-ubs').dataTable().fnDestroy();
-		$('#table-ubs').DataTable({
-		  'paging'      : true,
-		  'lengthChange': false,
-		  'searching'   : true,
-		  'ordering'    : true,
-		  'info'        : true,
-		  'autoWidth'   : false
-		})
+			$('#table-ubs tbody').html(html);
+			
+			
+			$('#table-ubs').DataTable({
+			  'paging'      : true,
+			  'lengthChange': false,
+			  'searching'   : true,
+			  'ordering'    : true,
+			  'info'        : true,
+			  'autoWidth'   : false
+			});
+		});
 		
-		$('#table-ubs tbody').append(html);
+			
 		
 		$('#section-table-ubs').show();
 		
@@ -242,7 +248,8 @@ function getUbs(){
 	});
   
 
-  
+	
+		
   
 
 

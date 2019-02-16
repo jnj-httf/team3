@@ -146,7 +146,7 @@
               <table id="table-ubs" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>Distancia (m)</th>
+                  <th>Distancia (Km)</th>
                   <th>Cod Municipio</th>
                   <th>Cod Cnes</th>
                   <th>Nome</th>
@@ -210,39 +210,38 @@
 <script>
 
 function getUbsProxima(){
-	console.log('teste');
 	var cidade = {};
 	  cidade['latitude'] = $('#inputLatitude').val();
 	  cidade['longitude'] = $('#inputLongitude').val();
 		var data = cidade; 
 		requestAJAX('GET','http://localhost:51726/api/UBS/getUbsProxima', data, function(response){
-			var html = ''
-			for (i = 0; i < response.length; i++) { 
-				html += "<tr>" + 
-				"<td>" + response[i].distance + "</td>" +
-							"<td>" + response[i].cod_munic + "</td>" +
-							"<td>" + response[i].cod_cnes + "</td>" + 
-							"<td>" + response[i].nom_estab + "</td>" + 
-							"<td>" + response[i].dsc_endereco + "</td>" + 
-							"<td>" + response[i].dsc_bairro + "</td>" + 
-							"<td>" + response[i].dsc_cidade + "</td>" + 
-							"<td>" + response[i].dsc_telefone + "</td>" + 
-							"</tr>";
-							
-			}
-							
-		
-		
-			$('#table-ubs tbody').append(html);
+			resetTable('table-ubs', function(){
+				var html = ''
+				$('#table-ubs tbody').append(html);
+				for (i = 0; i < response.length; i++) { 
+					html += "<tr>" + 
+					"<td>" + response[i].distance + "</td>" +
+								"<td>" + response[i].cod_munic + "</td>" +
+								"<td>" + response[i].cod_cnes + "</td>" + 
+								"<td>" + response[i].nom_estab + "</td>" + 
+								"<td>" + response[i].dsc_endereco + "</td>" + 
+								"<td>" + response[i].dsc_bairro + "</td>" + 
+								"<td>" + response[i].dsc_cidade + "</td>" + 
+								"<td>" + response[i].dsc_telefone + "</td>" + 
+								"</tr>";
+								
+				}
 			
-			$('#table-ubs').DataTable({
-			  'paging'      : true,
-			  'lengthChange': false,
-			  'searching'   : false,
-			  'ordering'    : true,
-			  'info'        : true,
-			  'autoWidth'   : false
-			});
+				$('#table-ubs tbody').append(html);
+				$('#table-ubs').DataTable({
+				  'paging'      : true,
+				  'lengthChange': false,
+				  'searching'   : true,
+				  'ordering'    : true,
+				  'info'        : true,
+				  'autoWidth'   : false
+				});
+			})
 		
 			$('#section-table-ubs').show();
     
