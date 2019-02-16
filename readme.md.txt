@@ -1,0 +1,1 @@
+https://docs.microsoft.com/pt-br/aspnet/core/security/cors?view=aspnetcore-2.2
