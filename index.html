@@ -14,22 +14,55 @@
     
     <div class="">
       <div class="col-md-2">
-      	<form>
-          <p>Digite a cidade:</p>
-          <input type="text" id="cidade"><br>
-          <p>Digite a Latitude:</p>
-          <input type="text" id="latitude"><br>
-          <p>Digite a Longitude:</p>
-          <input type="text" id="longitude"><br>
-        </form>
+
+          <form>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Cidade</label>
+                <input type="cidade" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                
+              </div>
+              <button type="submit" class="btn btn-primary">Buscar UBS</button>
+          </form>
         
-        <button id="buscarcidade" class="btn btn-primary" onclick="getcidades()"> BUSCAR CIDADES</button>
       </div>
 
       <div class="col-md-2">
 
-        <button id="buscarcidadeprox" class="btn btn-primary" onclick="getcidades()"> BUSCAR UBS PROX</button>
+          <form>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Latitude</label>
+                <input type="latitude" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">  
+              </div>
+              <div class="form-group">
+                  <label for="exampleInputEmail1">Longitude</label>
+                  <input type="longitude" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                </div>
+              <button type="submit" class="btn btn-primary">Buscar UBS Proximas</button>
+          </form>
+        
       </div>
+
+      <div id="tableCidades">
+        <table>
+          <thead>
+            <tr>
+              <td>Cidade</td>
+              <td>Municipio</td>
+              <td>Lat</td>
+              <td>Long</td>
+            </tr>
+          </thead>
+          <tbody>
+            
+
+
+          </tbody>
+
+        </table>
+
+
+      </div>
+
     </div>
 
     <!-- Optional JavaScript -->
