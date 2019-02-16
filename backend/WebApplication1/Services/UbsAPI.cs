@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 
@@ -63,7 +64,9 @@ namespace Challenge1HackTeam3.Services
         public static List<Record> getUbsByCity(string cidade)
         {
             ResponseDTO json = GetUbs();
-            var ret = json.Records.Where(x => x!= null && x.dsc_cidade.Trim().ToUpper() == cidade.Trim().ToUpper()).ToList();
+                                 
+            var ret = json.Records.Where(x => x!= null && 
+                HttpUtility.UrlEncode(x.dsc_cidade.Trim().ToUpper(), Encoding.GetEncoding(28597)).Replace("+", " ") == HttpUtility.UrlEncode(cidade.Trim().ToUpper(), Encoding.GetEncoding(28597)).Replace("+", " ")).ToList();
 
             return ret;
         }
@@ -71,37 +74,22 @@ namespace Challenge1HackTeam3.Services
 
         public static IEnumerable<Record> GetUbsByLat(double lat, double lng)
         {
+            System.Device.Location.GeoCoordinate _Coord = new System.Device.Location.GeoCoordinate(lat, lng);
+            
             var cities = GetUbs();
             List<Record> lstRet = new List<Record>();
             cities.Records.ForEach(x =>
            {
                if (x != null)
                {
-                   double R = 6371e3;
-                   var dlat = Convert.ToDouble(x.vlr_latitude) - lat;
-                   var dlon = Convert.ToDouble(x.vlr_longitude) - lng;
-
-                   var q = Math.Abs (Math.Pow(Math.Sin(dlat), 2) + Math.Cos(lat) * Math.Cos(Convert.ToDouble(x.vlr_latitude)) * Math.Pow(Math.Sin(dlon), 2));
-                   var c = 2 * Math.Atan2(Math.Sqrt(q), Math.Sqrt(1 - q));
-
-                   var d = c * R;
-                   var distance = d / 1000;
-
-                   x.distance = distance;
-
-                   if (double.IsNaN(x.distance)){
-                        x.distance = 9999999;
-                   }
-
+                   x.distance = (_Coord.GetDistanceTo(new System.Device.Location.GeoCoordinate(Convert.ToDouble(x.vlr_latitude.Replace(".",",")), Convert.ToDouble(x.vlr_longitude.Replace(".", ","))))/1000);
                    lstRet.Add(x);
                }
-               
-
+              
            });
 
             return lstRet.Where(x => x != null).ToList().OrderBy(x =>  x.distance).Take(10);
         }
-
-
+        
     }
 }
