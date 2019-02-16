@@ -1,6 +1,6 @@
 function getcidades(){
 	
-	var url = 'https://api-ldc-hackathon.herokuapp.com/api/ubs/1';
+	var url = 'https://api-ldc-hackathon.herokuapp.com/api/ubs/10';
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', url, true);
 	xhr.responseType = 'json';
@@ -19,3 +19,15 @@ function getcidades(){
 	xhr.send();
 
 }	
+
+function readTextFile() {
+  var rawFile = new XMLHttpRequest();
+  rawFile.open("GET", "citys.txt", true);
+  rawFile.onreadystatechange = function() {
+    if (rawFile.readyState === 4) {
+      var allText = rawFile.responseText;
+      document.innerHTML = allText;
+    }
+  }
+  rawFile.send();
+}

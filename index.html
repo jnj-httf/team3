@@ -7,24 +7,23 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="front.css">
     <title>Lista UBS por cidade</title>
   </head>
   <body>
-    <p>Selecione a cidade:</p>
-	<select>
-	  <option value="volvo">Volvo</option>
-	  <option value="saab">Saab</option>
-	  <option value="mercedes">Mercedes</option>
-	  <option value="audi">Audi</option>
-	</select>
+    
+    <div class="col-md-2">
+    	<form>
+        <p>Digite a cidade:</p>
+        <input type="text" id="cidade"><br>
+        <p>Digite a Latitude:</p>
+        <input type="text" id="latitude"><br>
+        <p>Digite a Longitude:</p>
+        <input type="text" id="longitude"><br>
+      </form>
+    </div>
 
-  <form>
-    <input type="text" id="latitude">
-    <input type="text" id="longitude">
-  </form>
-
-    <button onclick="getcidades()"> GET CIDADES</button>
+    <button class="btn btn-primary" onclick="getcidades()"> GET CIDADES</button>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
