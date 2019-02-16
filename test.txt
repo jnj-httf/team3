@@ -1,2 +1,44 @@
 test
 alguma coisa
+
+function initializeTableExtract(){
+	    	var table = $('#extractTable').DataTable({
+				dom : '<"html5buttons"B>lTfgitp',
+				buttons : [],
+				"order" : [ [ 9, 'desc' ] ],
+				"columnDefs" : [ { "orderable" : false, "targets" : 0}],
+				"lengthMenu" : [ [ 20, 50, 100 ], [ 20, 50, 100 ] ],
+				"ordering": true,
+				"paging": true,
+				"iDisplayStart" : 0,
+				"searching" : true,
+				"bServerSide" : true,
+				"ajax" : {
+					"url" : "get-extract",
+					"type" : "POST",
+					"data" : function(d) {
+						var filter = {};
+						
+						filter["listPCPType"] = $('#selectPCPType').val(); 
+						filter["listManagerMRP"] = $('#selectManager').val(); 
+						filter["listSupervisorMRP"] = $('#selectSupervisor').val();
+						filter["listAnalyst"] = $('#selectAnalyst').val();
+						filter["listPlannerCode"] = $('#selectMRPPlan').val();
+						filter["listPlant"] = $('#selectPlant').val();
+						filter["showNotAnalyzedOnly"] = $("[name='notAnalyzedBox']")[0].checked;
+						
+						d.json = JSON.stringify(filter);
+								    				
+					}
+				},
+				"bProcgetgetEessing" : true,
+				"bProcessing" : true,
+				"initComplete" : function(settings, json) {
+					addSearch(2);
+					applySearchInputFooterServerSide(table);
+				}
+	    	});
+	    	
+	    	applyScrollBody('extractTable');
+	    	hideSearchGeral('extractTable');
+	    }
